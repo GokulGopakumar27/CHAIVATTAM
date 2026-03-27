@@ -5,21 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vattam Chai</title>
 
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #f5e6d3, #d9a066);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #4b2e2b, #8b5e3c, #d2a679);
   text-align: center;
+  color: #fff;
+  overflow-x: hidden;
 }
 
 .container {
   padding: 30px;
+  animation: fadeIn 1.5s ease-in;
 }
 
 h1 {
-  font-size: 32px;
-  color: #3b2f2f;
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  color: #ffe6cc;
 }
 
 .hidden { display: none; }
@@ -28,6 +35,8 @@ video {
   width: 260px;
   border-radius: 20px;
   margin-top: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  animation: slideUp 1.5s ease;
 }
 
 .buttons { margin-top: 30px; }
@@ -40,13 +49,17 @@ button {
   border-radius: 12px;
   cursor: pointer;
   transition: 0.3s;
+  font-weight: 600;
 }
 
-.yes { background: #2ecc71; color: white; }
-.no { background: #e743c; color: white; }
-.join { background: black; color: white; }
+.കുടിക്കാലോ { background: #a0522d; color: #fff; }
+.പിന്നീടാകാം { background: #5c4033; color: #fff; }
+.join { background: #2b1d14; color: #fff; }
 
-button:hover { transform: scale(1.1); }
+button:hover {
+  transform: scale(1.1);
+  background: #c68642;
+}
 
 .logo {
   width: 140px;
@@ -62,11 +75,58 @@ button:hover { transform: scale(1.1); }
   margin: 20px auto;
   font-size: 16px;
   line-height: 1.6;
+  color: #fff5e6;
 }
+
+/* Opening Animation */
+.opening {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #3b2f2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeOut 2s ease forwards;
+  animation-delay: 2s;
+}
+
+.chai-hand {
+  width: 120px;
+  animation: offerChai 2s ease-in-out;
+}
+
+/* Animations */
+@keyframes offerChai {
+  0% { transform: translateY(100px) scale(0.8); opacity: 0; }
+  50% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-10px); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- Opening Animation -->
+<div class="opening">
+  <img src="chai-offer.png" class="chai-hand" alt="Offering chai">
+</div>
 
 <!-- PAGE 1 -->
 <div class="container" id="page1">
@@ -75,15 +135,15 @@ button:hover { transform: scale(1.1); }
     <source src="chai-animation.mp4" type="video/mp4">
   </video>
 
-  <h1>ചായ കുടിക്കുന്നോ?</h1>
+  <h1>ഒരു ചായ കുടിച്ചാലോ ?</h1>
 
   <form name="chai-response" method="POST" data-netlify="true" hidden>
     <input type="text" name="answer">
   </form>
 
   <div class="buttons">
-    <button class="yes" onclick="sendResponse('Yes')">Yes ☕</button>
-    <button class="no" onclick="sendResponse('No')">No ❌</button>
+    <button class="കുടിക്കാലോ" onclick="sendResponse('yes')">കുടിക്കാലോ ☕</button>
+    <button class="പിന്നീടാകാം" onclick="sendResponse('no')">പിന്നീടാകാം ❌</button>
   </div>
 
   <div id="msg"></div>
@@ -97,7 +157,7 @@ button:hover { transform: scale(1.1); }
   <h1>VATTAM (വട്ടം)</h1>
 
   <div class="about-text">
-    VATTAM (വട്ടം) is a creative circle where minds come together to express, share, and build ideas freely. It’s a non-judgmental space where everyone is equal—no labels, no hierarchy—just creativity, conversation, and collaboration. Here, we sit, think, create, and evolve together, turning simple ideas into meaningful expressions and solutions. Where nothing begins, nothing ends—everything evolves.
+    VATTAM (വട്ടം) is a creative circle where minds come together to express, share, and build ideas freely. It’s a non-judgmental space where everyone is equal—no labels, no hierarchy—just creativity, conversation, and collaboration.
     <br><br>
     If you’d like to join us for a cup of tea and be part of the circle,
   </div>
@@ -114,7 +174,7 @@ function sendResponse(answer) {
     body: "form-name=chai-response&answer=" + answer
   });
 
-  if (answer === "Yes") {
+  if (answer === "yes") {
     setTimeout(() => {
       document.getElementById("page1").classList.add("hidden");
       document.getElementById("page2").classList.remove("hidden");
