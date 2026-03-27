@@ -5,40 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vattam Chai</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #4b2e2b, #8b5e3c, #d2a679);
-  text-align: center;
   color: #fff;
-  overflow-x: hidden;
+  text-align: center;
+
+  /* Tea Shop Background */
+  background: 
+    linear-gradient(rgba(40,25,15,0.7), rgba(40,25,15,0.9)),
+    url('https://images.unsplash.com/photo-1509042239860-f550ce710b93');
+  background-size: cover;
+  background-position: center;
 }
 
+/* Warm light overlay */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top, rgba(255,200,150,0.2), transparent);
+  pointer-events: none;
+}
+
+/* Container */
 .container {
   padding: 30px;
-  animation: fadeIn 1.5s ease-in;
+  animation: fadeIn 1.5s ease;
 }
 
+/* Heading */
 h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 34px;
-  color: #ffe6cc;
+  font-size: 36px;
+  color: #ffe0b3;
+  text-shadow: 0 0 10px rgba(255,200,150,0.5);
 }
 
-.hidden { display: none; }
-
+/* Video */
 video {
   width: 260px;
   border-radius: 20px;
   margin-top: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  animation: slideUp 1.5s ease;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
 }
 
+/* Steam Effect */
+.steam {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 120px;
+}
+
+.steam span {
+  display: block;
+  width: 8px;
+  height: 40px;
+  background: rgba(255,255,255,0.2);
+  margin: 4px auto;
+  border-radius: 50%;
+  animation: steam 3s infinite ease-in-out;
+}
+
+.steam span:nth-child(2) { animation-delay: 0.5s; }
+.steam span:nth-child(3) { animation-delay: 1s; }
+
+@keyframes steam {
+  0% { transform: translateY(0) scaleX(1); opacity: 0.3; }
+  50% { transform: translateY(-40px) scaleX(1.5); opacity: 0.8; }
+  100% { transform: translateY(-80px) scaleX(1); opacity: 0; }
+}
+
+/* Buttons */
 .buttons { margin-top: 30px; }
 
 button {
@@ -52,70 +96,50 @@ button {
   font-weight: 600;
 }
 
-.കുടിക്കാലോ { background: #a0522d; color: #fff; }
-.പിന്നീടാകാം { background: #5c4033; color: #fff; }
-.join { background: #2b1d14; color: #fff; }
+.കുടിക്കാലോ {
+  background: #c68642;
+  color: white;
+  box-shadow: 0 0 15px rgba(198,134,66,0.6);
+}
+
+.പിന്നീടാകാം {
+  background: #5c4033;
+  color: white;
+}
+
+.join {
+  background: #2b1d14;
+  color: white;
+}
 
 button:hover {
   transform: scale(1.1);
-  background: #c68642;
+  background: #e0a96d;
 }
 
+/* Logo */
 .logo {
   width: 140px;
   margin: 20px auto;
-  display: block;
   border-radius: 50%;
   background: white;
   padding: 10px;
 }
 
+/* Text */
 .about-text {
   max-width: 600px;
   margin: 20px auto;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #fff5e6;
+  color: #fff3e0;
 }
 
-/* Opening Animation */
-.opening {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #3b2f2f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-  animation: fadeOut 2s ease forwards;
-  animation-delay: 2s;
-}
-
-.chai-hand {
-  width: 120px;
-  animation: offerChai 2s ease-in-out;
-}
+/* Hide */
+.hidden { display: none; }
 
 /* Animations */
-@keyframes offerChai {
-  0% { transform: translateY(100px) scale(0.8); opacity: 0; }
-  50% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-10px); }
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
-}
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
 }
 
 </style>
@@ -123,23 +147,20 @@ button:hover {
 
 <body>
 
-<!-- Opening Animation -->
-<div class="opening">
-  <img src="chai-offer.png" class="chai-hand" alt="Offering chai">
-</div>
-
-<!-- PAGE 1 -->
 <div class="container" id="page1">
+
+  <!-- Steam -->
+  <div class="steam">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <video autoplay loop muted playsinline>
     <source src="chai-animation.mp4" type="video/mp4">
   </video>
 
-  <h1>ഒരു ചായ കുടിച്ചാലോ ?</h1>
-
-  <form name="chai-response" method="POST" data-netlify="true" hidden>
-    <input type="text" name="answer">
-  </form>
+  <h1>ഒരു ചായ കുടിച്ചാലോ ? ☕</h1>
 
   <div class="buttons">
     <button class="കുടിക്കാലോ" onclick="sendResponse('yes')">കുടിക്കാലോ ☕</button>
@@ -149,7 +170,6 @@ button:hover {
   <div id="msg"></div>
 </div>
 
-<!-- PAGE 2 -->
 <div class="container hidden" id="page2">
 
   <img src="logo.png" class="logo">
@@ -157,9 +177,8 @@ button:hover {
   <h1>VATTAM (വട്ടം)</h1>
 
   <div class="about-text">
-    VATTAM (വട്ടം) is a creative circle where minds come together to express, share, and build ideas freely. It’s a non-judgmental space where everyone is equal—no labels, no hierarchy—just creativity, conversation, and collaboration.
-    <br><br>
-    If you’d like to join us for a cup of tea and be part of the circle,
+    VATTAM is a creative circle where people connect over chai, ideas, and conversations.
+    A place where warmth, thoughts, and creativity flow together like a perfect cup of tea ☕
   </div>
 
   <button class="join" onclick="joinUs()">Join Us ☕</button>
@@ -168,12 +187,6 @@ button:hover {
 
 <script>
 function sendResponse(answer) {
-  fetch("/", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: "form-name=chai-response&answer=" + answer
-  });
-
   if (answer === "yes") {
     setTimeout(() => {
       document.getElementById("page1").classList.add("hidden");
